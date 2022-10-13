@@ -3,7 +3,8 @@ FROM rust:1.64 as builder
 WORKDIR /tmp/build
 COPY . .
 
-RUN cargo build --release -- -C target-cpu=native
+ENV RUSTFLAGS="-C target-cpu=native"
+RUN cargo build --release 
 
 FROM ubuntu:22.04
 RUN apt-get update \
