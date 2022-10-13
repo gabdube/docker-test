@@ -3,7 +3,7 @@ FROM rust:1.64 as builder
 WORKDIR /tmp/build
 COPY . .
 
-RUN cargo build --release
+RUN cargo build --release -- -C target-cpu=native
 
 FROM ubuntu:22.04
 RUN apt-get update \
@@ -17,4 +17,4 @@ COPY --from=builder /tmp/build/assets /usr/src/app/assets
 
 WORKDIR /usr/src/app
 
-CMD ["rust_docker_test"]
+CMD ["./rust_docker_test"]
